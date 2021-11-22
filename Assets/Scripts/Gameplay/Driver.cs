@@ -5,7 +5,7 @@ using UnityEngine;
 
 /*
  * Call order: 
- * Initialize()
+ * PrepareForSpawn()
  *      NextPhase() [several times until up to date, every call is a phase++]
  *      UpdatePhase() [once every frame]
  * 
@@ -17,7 +17,6 @@ public abstract class Driver
     protected int phase = -1;
     protected bool cleanedUp = false;
 
-    //TODO: Some JSON loads in here
     public Driver()
     {
         
@@ -32,7 +31,7 @@ public abstract class Driver
     {
         if (time >= GetInstantiationPrewarmTime())
         {
-            Initialize();
+            PrepareForSpawn();
             return true;
         } else
         {
@@ -86,5 +85,10 @@ public abstract class Driver
 
     //Called before any NextPhase comes. Used to allocate storage etc a short time before this driver actually has its first event.
     //Once this is called, this driver is in the loop and receives updates with the timestamp
-    protected abstract void Initialize();
+    protected abstract void PrepareForSpawn();
+
+    public void Initialize(Object json, float beatLength) {
+        InitializeTimestamps(json, beatLength);
+    }
+    protected abstract void InitializeTimestamps(Object json, float beatLength);
 }
