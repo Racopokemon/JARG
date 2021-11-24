@@ -13,7 +13,7 @@ using UnityEngine;
  */
 public abstract class Driver
 {
-    protected float[] timestamps; //In seconds, dependent on the song. 
+    protected float[] timestamps; //In seconds, dependent on the song. Expected to be sorted ascendingly
     protected int phase = -1;
     protected bool cleanedUp = false;
 
@@ -87,8 +87,8 @@ public abstract class Driver
     //Once this is called, this driver is in the loop and receives updates with the timestamp
     protected abstract void PrepareForSpawn();
 
-    public void Initialize(Object json, float beatLength) {
-        InitializeTimestamps(json, beatLength);
+    public void Initialize(float beatLength) {
+        InitializeTimestamps(beatLength);
     }
-    protected abstract void InitializeTimestamps(Object json, float beatLength);
+    protected abstract void InitializeTimestamps(float beatLength);
 }
