@@ -14,6 +14,7 @@ public struct MapWrapper
     }
 
     public string songFilename;
-    public float BPM;
+    public float bpm;
+    public float offset;
     public SingleMoveWrapper[] moves;
 }

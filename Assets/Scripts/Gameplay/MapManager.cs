@@ -8,25 +8,26 @@ using UnityEngine;
  * Actually this is rather the DriverManager. Creates them, updates them, keeps track of them. 
  * 
  */
-public class MapManager : MonoBehaviour
+public class MapManager
 {
     protected List<Driver> drivers = new List<Driver>();
     protected List<Driver> waitingDrivers = new List<Driver>(); //Sorted descending, first events are last here.
     protected List<Driver> activeDrivers = new List<Driver>();
     protected float bpm;
     protected string songPath;
-    protected AudioClip clip; 
+    protected AudioClip clip;
+    protected AudioSource source;
 
-    public MapManager(string filename)
+    public MapManager(string filename, MonoBehaviour coroutineExecuter)
     {
         //TODO: Argument: Filename? Stream? Decoded JSON? [could do this ourselves as well tbh]
         string entireFileAsString = System.IO.File.ReadAllText(filename); //Once I have 1000 blocks per map and 100.000 light events, I should switch to a 3rd party solution nevertheless, this is really just for sketching and simple songs
         MapWrapper map = JsonUtility.FromJson<MapWrapper>(entireFileAsString);
 
         songPath = "./" + map.songFilename;
-        StartCoroutine(LoadSongCoroutine());
+        coroutineExecuter.StartCoroutine(LoadSongCoroutine());
 
-        bpm = map.BPM;
+        bpm = map.bpm;
 
         foreach (MapWrapper.SingleMoveWrapper w in map.moves)
         {
@@ -61,8 +62,15 @@ public class MapManager : MonoBehaviour
         clip = www.GetAudioClip(false, false);
     }
 
-    public void Update(float timestamp)
+    public bool HasLoaded()
     {
+        //The loading of the moves happens (on the main thread) in the constructor, loading the song is the only thing that remains. 
+        return clip != null;
+    }
+
+    public void Update()
+    {
+        float timestamp = source.time;
         while (waitingDrivers[waitingDrivers.Count-1].InstantiateIfTime(timestamp))
         {
             int index = waitingDrivers.Count - 1;
@@ -88,5 +96,13 @@ public class MapManager : MonoBehaviour
         {
             d.CleanUp();
         }
+    }
+
+    //Init call, adds audio source etc. Call this after construction as soon as HasLoaded(), and then call Update() every frame. 
+    public void MountToUnity(AudioSource source)
+    {
+        source.clip = clip;
+        source (offset must be calculated anyway)
+        source.Play();
     }
 }
