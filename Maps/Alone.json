@@ -1,8 +1,26 @@
 {
-"songFilename":"Alone.ogg",
-"bpm":80,
-"offset":0,
-"moves": [
-{"type":"text","json":"{}"}
-]
+	"songFilename" : "./Maps/Songs/Alone.ogg",
+	"bpm" : 97,
+	"moves" : [
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"8\",\n\t\"end\" : \"10\",\n\t\"text\" : \"Lost\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"10\",\n\t\"end\" : \"12\",\n\t\"text\" : \"in\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"12\",\n\t\"end\" : \"14\",\n\t\"text\" : \"your\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\r\n\n\"start\" : \"14\",\n\t\"end\" : \"18\",\n\t\"text\" : \"mind\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\r\n\n\"start\" : \"19\",\n\t\"end\" : \"22\",\n\t\"text\" : \"I wanna know\"\n}\n"
+		}
+	]
 }

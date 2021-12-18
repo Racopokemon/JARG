@@ -24,7 +24,7 @@ public class MapManager
         string entireFileAsString = System.IO.File.ReadAllText(filename); //Once I have 1000 blocks per map and 100.000 light events, I should switch to a 3rd party solution nevertheless, this is really just for sketching and simple songs
         MapWrapper map = JsonUtility.FromJson<MapWrapper>(entireFileAsString);
 
-        songPath = "./" + map.songFilename;
+        songPath = map.songFilename; //TODO: Make this relative to where the level itself sits. 
         coroutineExecuter.StartCoroutine(LoadSongCoroutine());
 
         bpm = map.bpm;
@@ -37,9 +37,8 @@ public class MapManager
                 Debug.Log("Bro what did u do? Could not find move " + w.type + ". Ignoring it. ");
                 continue;
             }
-            UnityEngine.Object moveWrapper = (UnityEngine.Object) constructor.Invoke(new object[] { });
 
-            JsonUtility.FromJsonOverwrite(w.json, moveWrapper);
+            object moveWrapper = JsonUtility.FromJson(w.json, typeof(TextWrapper)); //TODO ofc this is garbage and we need to get the right wrapper from the dictionary
 
             Driver driver = ((MoveWrapper)moveWrapper).CreateDriver();
 
@@ -102,7 +101,7 @@ public class MapManager
     public void MountToUnity(AudioSource source)
     {
         source.clip = clip;
-        source (offset must be calculated anyway)
+        //TODO: Offset feature. By now, it just starts on the beat and you have to modify the song
         source.Play();
     }
 }

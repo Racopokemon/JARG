@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PalmWrapper : MoveWrapper
 {
     public float moveStart, moveEnd, holdEnd;
