@@ -5,16 +5,16 @@ using System;
 using System.Reflection;
 
 //Subclass this with all public attributes this move needs, and create a driver from this in CreateDriver (you will probably just call new MyDriver(this)).
-//Also, add the identification string for this move in MapManager in the static constructor here: (bit stretchy, but should work)
+//Also, add the type of your wrapper in the file into the typeDictionary. 
 [Serializable]
 public abstract class MoveWrapper
 {
-    public static Dictionary<string, ConstructorInfo> typeConstructorDictionary = new Dictionary<string, ConstructorInfo>();
+    public static Dictionary<string, Type> typeDictionary = new Dictionary<string, Type>();
     static MoveWrapper()
     {
         //Add your own empty constructor for your name and wrapper here: 
-        typeConstructorDictionary.Add("palm", typeof(PalmWrapper).GetConstructor(new Type[] {}));
-        typeConstructorDictionary.Add("text", typeof(TextWrapper).GetConstructors()[0]);
+        typeDictionary.Add("palm", typeof(PalmWrapper));
+        typeDictionary.Add("text", typeof(TextWrapper));
     }
 
     public abstract Driver CreateDriver();

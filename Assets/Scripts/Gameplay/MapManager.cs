@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using System;
 using UnityEngine;
 
 /*
@@ -31,8 +31,8 @@ public class MapManager
 
         foreach (MapWrapper.SingleMoveWrapper w in map.moves)
         {
-            ConstructorInfo constructor;
-            if (!MoveWrapper.typeConstructorDictionary.TryGetValue(w.type, out constructor)) //"Good" data management here, we just know that there is some public dict hangin round
+            Type type;
+            if (!MoveWrapper.typeDictionary.TryGetValue(w.type, out type)) //"Good" data management here, we just know that there is some public dict hangin round
             {
                 Debug.Log("Bro what did u do? Could not find move " + w.type + ". Ignoring it. ");
                 continue;
@@ -47,7 +47,7 @@ public class MapManager
         }
 
         //sort by firstTimestamp (but so that the first elements stand last - lesser reordering!)
-        drivers = drivers.OrderByDescending( driver => driver.GetInstantiationPrewarmTime()).ToList<Driver>();
+        drivers = drivers.OrderByDescending( driver => driver.GetInstantiationPrewarmTime()).ToList();
         //ich bin auch mittlerweile soweit, dass ich gar nicht mehr richtig weiß, dass man in Java die { in derselben Zeile hat. Und dass man Methoden klein schreibt. 
     }
 
