@@ -55,7 +55,7 @@ public abstract class Driver
         if (cleanedUp) return true;
         while (timestamp >= timestamps[phase+1])
         {
-            if (++phase >= timestamps.Length)
+            if (++phase >= timestamps.Length-1)
             {
                 CleanUp();
                 return true;

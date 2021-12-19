@@ -11,7 +11,7 @@ using UnityEngine;
 public class MapManager
 {
     protected List<Driver> drivers = new List<Driver>();
-    protected List<Driver> waitingDrivers = new List<Driver>(); //Sorted descending, first events are last here.
+    protected List<Driver> waitingDrivers = new List<Driver>(); //Sorted descendingly, first events are last here.
     protected List<Driver> activeDrivers = new List<Driver>();
     protected float bpm;
     protected string songPath;
@@ -47,14 +47,14 @@ public class MapManager
         }
 
         //sort by firstTimestamp (but so that the first elements stand last - lesser reordering!)
-        drivers.OrderByDescending( driver => driver.GetInstantiationPrewarmTime()); //schon bisschen geil ey. vielleicht werde ich doch noch c# fan. 
+        drivers = drivers.OrderByDescending( driver => driver.GetInstantiationPrewarmTime()).ToList<Driver>();
         //ich bin auch mittlerweile soweit, dass ich gar nicht mehr richtig weiß, dass man in Java die { in derselben Zeile hat. Und dass man Methoden klein schreibt. 
     }
 
     //https://stackoverflow.com/questions/30852691/loading-mp3-files-at-runtime-in-unity bros u awesome ty <3
     protected IEnumerator LoadSongCoroutine()
     {
-        string url = string.Format("file://{0}", songPath);
+        string url = string.Format("file:///{0}", songPath); //Bugfix: On windows, you need three ///
         WWW www = new WWW(url);
         yield return www;
 
@@ -70,14 +70,14 @@ public class MapManager
     public void Update()
     {
         float timestamp = source.time;
-        while (waitingDrivers[waitingDrivers.Count-1].InstantiateIfTime(timestamp))
+        while (waitingDrivers.Count > 0 && waitingDrivers[waitingDrivers.Count-1].InstantiateIfTime(timestamp))
         {
             int index = waitingDrivers.Count - 1;
             activeDrivers.Add(waitingDrivers[index]);
             waitingDrivers.RemoveAt(index);
         }
         int i = 0;
-        while (i <= activeDrivers.Count)
+        while (i < activeDrivers.Count)
         {
             if (activeDrivers[i].Update(timestamp))
             {
@@ -98,10 +98,14 @@ public class MapManager
     }
 
     //Init call, adds audio source etc. Call this after construction as soon as HasLoaded(), and then call Update() every frame. 
-    public void MountToUnity(AudioSource source)
+    public void MountToUnityAndStart(AudioSource source)
     {
+        this.source = source; 
         source.clip = clip;
         //TODO: Offset feature. By now, it just starts on the beat and you have to modify the song
         source.Play();
+
+        waitingDrivers.Clear();
+        waitingDrivers.AddRange(drivers);
     }
 }

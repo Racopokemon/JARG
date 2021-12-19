@@ -51,7 +51,7 @@ public class LevelPlayer : MonoBehaviour
         {
             throw new System.Exception("Cannot start level, because the level has not loaded yet (or we are in a wrong state in another way)");
         }
-        manager.MountToUnity(audioSource);
+        manager.MountToUnityAndStart(audioSource);
         state = State.playing;
     }
 }
