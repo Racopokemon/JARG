@@ -29,7 +29,7 @@ public class TextDriver : Driver
         g.SetActive(GetPhase() == 0);
     }
 
-    protected override void UpdatePhase(float a) { }
+    protected override void UpdatePhase(float a, bool forCompletionOnly) { }
 
     protected override void DoCleanUp()
     {

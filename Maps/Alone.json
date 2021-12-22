@@ -21,6 +21,10 @@
 		{
 			"type" : "text",
 			"json" : "{\r\n\n\"start\" : \"19\",\n\t\"end\" : \"22\",\n\t\"text\" : \"I wanna know\"\n}\n"
+		},
+		{
+			"type" : "palm",
+			"json" : "{\n\t\"moveStart\" : \"0\",\n\t\"moveEnd\" : \"0\",\n\t\"holdEnd\" : \"0\",\n\t\"x\" : \"0\",\n\t\"y\" : \"0\",\n\t\"z\" : \"0\",\n\t\"angle\" : \"0\",\n\t\"right\" : true\n\r\n}\n"
 		}
 	]
 }

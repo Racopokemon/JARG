@@ -9,8 +9,10 @@ using System.Linq;
  * 
  * Call order: 
  * PrepareForSpawn()
- *      NextPhase() [several times until up to date, every call is a phase++]
- *      UpdatePhase() [once every frame]
+ *        [UpdatePhase(a = 1, forCompletionOnly = true)
+ *        [NextPhase()
+ *        [ these two are looped for every phase completed in the meantime, after that you always get this one UpdatePhase call: 
+ *      UpdatePhase(a \in [0, 1], forCompletionOnly = false) [once every frame]
  * 
  * DoCleanUp() is called once. When reaching the last timestamp, or already before. 
  */
@@ -61,12 +63,13 @@ public abstract class Driver
                 return true;
             } else
             {
+                if (phase > 0) UpdatePhase(1, true);
                 NextPhase();
             }
         }
         if (phase >= 0)
         {
-            UpdatePhase(Mathf.InverseLerp(timestamps[phase], timestamps[phase+1], timestamp));
+            UpdatePhase(Mathf.InverseLerp(timestamps[phase], timestamps[phase+1], timestamp), false);
         }
         return false;
     }
@@ -83,17 +86,20 @@ public abstract class Driver
     //Once this is called, this driver is in the loop and receives updates with the timestamp
     protected abstract void PrepareForSpawn();
 
-    //Called before UpdatePhase, and for every raise by 1 in the phase. 
-    //Also called before you get the first UpdatePhase call
-    //(So if we progress several phases, this call comes several times, and then UpdatePhase)
+    //Called for every phase that was completed in the meantime.
+    //Before, UpdatePhase is called forCompletionOnly with alpha value 1, so that the previous animations reach their endpoint before switching to the next phase. 
+    //Also called before you get the first UpdatePhase call.
+    //Afterwards, there always follows one UpdatePhase call. 
+    //(So if we progress several phases, there come pairs of UpdatePhase (forCompletionOnly) and then NextPhase, and then UpdatePhase)
     //phase already contains the new phase value. 
     //When passing the last timestamp, CleanUp() is called instead, if it wasnt called before. 
     //GetPhase() will come in handy
     protected abstract void NextPhase();
 
     //a is a value between 0 and <1, depending on how far we are with our phase. 
+    //To finish animations at a==1 exactly, this is also called with forCompletionOnly=true and a=1 before every NextPhase call. 
     //GetPhase() returns already the new, freshly entered (or skipped, who knows) phase
-    protected abstract void UpdatePhase(float a);
+    protected abstract void UpdatePhase(float a, bool forCompletionOnly);
 
     protected abstract void DoCleanUp();
 
@@ -105,6 +111,13 @@ public abstract class Driver
             DoCleanUp();
             cleanedUp = true;
         }
+    }
+
+    //Helper method, changes the alpha channel of the color in the renderer
+    public void SetAlpha(Renderer r, float alpha)
+    {
+        Color c = r.material.color;
+        r.material.color = new Color(c.r, c.g, c.b, alpha);
     }
 
 }

@@ -22,8 +22,9 @@ tag names:
 * Implement PrepareForSpawn(): Called first, half a second or so before the first timestamp. The idea is to do all the Instantiate calls here already, silently preload prefabs and stuff and make everything ready, when time does not yet matter. [Does this make sense...? Well, idk]
 ** In case you load exactly one GameObject, its okay to call it g (I decide that!)
 ** g = (GameObject) Object.Instantiate(Resources.Load("PrefabName", typeof(GameObject))); This loads a prefab from a ressources folder and instantiates it. You will call that here. 
-* Implement NextPhase(): Its called for every timestamp that is passed, separately, and before UpdatePhase. Use GetPhase().
-* Implement UpdatePhase(). Hopefully you just do some interpolation. a is between 0 (start timestamp) and 1 (target timestamp). Use GetPhase().
+** You probably want to disable the GO for now. 
+* Implement NextPhase(): Its called for every timestamp that is passed, separately, and before UpdatePhase. Use GetPhase(). You dont need to finish animations here, UpdatePhase with a=1 is called before it.  
+* Implement UpdatePhase(). Hopefully you just do some interpolation. a is between 0 (start timestamp) and 1 (target timestamp). As said, its also called before every new phase. Use GetPhase().
 * Implement DoCleanup(). Can be called everytime, if PrepareForSpawn was already called. GetPhase did not change. Remove your clones and models. 
 
 Right now the most simple example is the text "move" (its no move at all), you may take looks there. 
