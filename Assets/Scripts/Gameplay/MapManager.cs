@@ -38,7 +38,7 @@ public class MapManager
                 continue;
             }
 
-            object moveWrapper = JsonUtility.FromJson(w.json, typeof(TextWrapper)); //TODO ofc this is garbage and we need to get the right wrapper from the dictionary
+            object moveWrapper = JsonUtility.FromJson(w.json, type); //TODO ofc this is garbage and we need to get the right wrapper from the dictionary
 
             Driver driver = ((MoveWrapper)moveWrapper).CreateDriver();
 
