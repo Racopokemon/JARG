@@ -24,19 +24,55 @@
 		},
 		{
 			"type" : "palm",
-			"json" : "{\n\t\"moveStart\" : 8,\n\t\"moveEnd\" : 9,\n\t\"holdEnd\" : 11,\n\t\"x\" : 0.2,\n\t\"y\" : 1.75,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\n\r\n}\n"
+			"json" : "{\n\t\"moveStart\" : 8,\n\t\"moveEnd\" : 9.5,\n\t\"holdEnd\" : 11,\n\t\"x\" : 0.2,\n\t\"y\" : 1.75,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\n\r\n}\n"
 		},
 		{
 			"type" : "palm",
-			"json" : "{\n\t\"moveStart\" : 10,\n\t\"moveEnd\" : 11,\n\t\"holdEnd\" : 13,\n\t\"x\" : -0.2,\n\t\"y\" : 1.6,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
+			"json" : "{\n\t\"moveStart\" : 10,\n\t\"moveEnd\" : 11.5,\n\t\"holdEnd\" : 13,\n\t\"x\" : -0.2,\n\t\"y\" : 1.6,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
 		},
 		{
 			"type" : "palm",
-			"json" : "{\n\t\"moveStart\" : 12,\n\t\"moveEnd\" : 13,\n\t\"holdEnd\" : 15,\n\t\"x\" : 0,\n\t\"y\" : 1.4,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\r\n}\n"
+			"json" : "{\n\t\"moveStart\" : 12,\n\t\"moveEnd\" : 13.5,\n\t\"holdEnd\" : 15,\n\t\"x\" : 0,\n\t\"y\" : 1.4,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\r\n}\n"
 		},
 		{
 			"type" : "palm",
-			"json" : "{\n\t\"moveStart\" : 14,\n\t\"moveEnd\" : 15,\n\t\"holdEnd\" : 18,\n\t\"x\" : 0.3,\n\t\"y\" : 1.65,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
+			"json" : "{\n\t\"moveStart\" : 14,\n\t\"moveEnd\" : 15.5,\n\t\"holdEnd\" : 18,\n\t\"x\" : 0.3,\n\t\"y\" : 1.65,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"23\",\n\t\"end\" : \"28\",\n\t\"text\" : \"Am I\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"24\",\n\t\"end\" : \"28\",\n\t\"text\" : \"\\nlosing \"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"28\",\n\t\"end\" : \"30\",\n\t\"text\" : \"my\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"30\",\n\t\"end\" : \"34\",\n\t\"text\" : \"mind?\"\n}\n"
+		},
+		{
+			"type" : "text",
+			"json" : "{\n\t\"start\" : \"34.5\",\n\t\"end\" : \"38\",\n\t\"text\" : \"Never let me go\"\n}\n"
+		},
+		{
+			"type" : "palm",
+			"json" : "{\n\t\"moveStart\" : 24,\n\t\"moveEnd\" : 25,\n\t\"holdEnd\" : 27,\n\t\"x\" : 0.2,\n\t\"y\" : 1.75,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\n\r\n}\n"
+		},
+		{
+			"type" : "palm",
+			"json" : "{\n\t\"moveStart\" : 26,\n\t\"moveEnd\" : 27,\n\t\"holdEnd\" : 29,\n\t\"x\" : -0.2,\n\t\"y\" : 1.6,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
+		},
+		{
+			"type" : "palm",
+			"json" : "{\n\t\"moveStart\" : 28,\n\t\"moveEnd\" : 29,\n\t\"holdEnd\" : 31,\n\t\"x\" : 0,\n\t\"y\" : 1.4,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : true\r\n}\n"
+		},
+		{
+			"type" : "palm",
+			"json" : "{\n\t\"moveStart\" : 30,\n\t\"moveEnd\" : 31,\n\t\"holdEnd\" : 33,\n\t\"x\" : 0.3,\n\t\"y\" : 1.65,\n\t\"z\" : 0,\n\t\"angle\" : 0,\n\t\"right\" : false\r\n}\n"
 		}
 	]
 }
