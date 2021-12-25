@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelPlayer : MonoBehaviour
 {
     protected enum State {
-        off, waitingForLoad, finishedLoading, playing //we dont really need finishedLoading right now, instantly starts the map
+        off, waitingForLoad, readyToPlay, playing, ended //we dont really need readyToPlay right now, instantly starts the map
     }
 
     public string filename = "level.json";
@@ -33,7 +33,7 @@ public class LevelPlayer : MonoBehaviour
         {
             if (manager.HasLoaded())
             {
-                state = State.finishedLoading;
+                state = State.readyToPlay;
                 StartLevel();
             }
         }
@@ -41,17 +41,39 @@ public class LevelPlayer : MonoBehaviour
 
     public void LoadLevel()
     {
-        manager = new MapManager(filename, this);
+        manager = new MapManager(filename, this, audioSource);
         state = State.waitingForLoad;
     }
 
     public void StartLevel()
     {
-        if (state != State.finishedLoading)
+        if (state != State.readyToPlay)
         {
             throw new System.Exception("Cannot start level, because the level has not loaded yet (or we are in a wrong state in another way)");
         }
-        manager.MountToUnityAndStart(audioSource);
+        manager.Play();
         state = State.playing;
+    }
+
+    public void EndLevel()
+    {
+        if (state == State.readyToPlay || state == State.playing)
+        {
+            manager.CleanUp();
+            state = State.ended;
+        }
+    }
+
+    public void ResetLevel()
+    {
+        if (state == State.off || state == State.waitingForLoad)
+        {
+            throw new System.Exception("Can only reset level when it has finished loading. ");
+        }
+        if (state == State.playing || state == State.ended)
+        {
+            manager.Reset();
+            state = State.readyToPlay;
+        }
     }
 }
