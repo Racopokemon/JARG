@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 public class CheapPointer : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CheapPointer : MonoBehaviour
                 click.Hover();
             }
         }
-        if (SteamVR_Actions. && click) // Right control
+        if (SteamVR_Actions.default_InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand) && click) // Right control
         {
             click.Click();
         }
