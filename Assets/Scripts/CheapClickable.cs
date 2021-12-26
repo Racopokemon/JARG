@@ -6,6 +6,11 @@ using UnityEngine.Events;
 public class CheapClickable : MonoBehaviour
 {
     public UnityEvent onClick;
+    protected Vector3 idleScale;
+    public void Start()
+    {
+        idleScale = transform.localScale;
+    }
 
     public void Click()
     {
@@ -14,11 +19,11 @@ public class CheapClickable : MonoBehaviour
 
     public void Hover()
     {
-        transform.localScale = Vector3.one * 1.1f;
+        transform.localScale = idleScale * 1.1f;
     }
 
     public void Unhover()
     {
-        transform.localScale = Vector3.one;
+        transform.localScale = idleScale;
     }
 }

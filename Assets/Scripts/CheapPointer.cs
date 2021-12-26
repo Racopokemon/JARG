@@ -12,8 +12,12 @@ public class CheapPointer : MonoBehaviour
     void Update()
     {
         RaycastHit info;
-        Physics.Raycast(transform.position, transform.forward, out info);
-        CheapClickable click = info.transform.gameObject.GetComponent<CheapClickable>();
+        CheapClickable click = null;
+        if (Physics.Raycast(transform.position, transform.forward, out info))
+        {
+            click = info.transform.gameObject.GetComponent<CheapClickable>();
+        }
+        
         if (click != hover)
         {
             if (hover)
@@ -24,6 +28,7 @@ public class CheapPointer : MonoBehaviour
             {
                 click.Hover();
             }
+            hover = click;
         }
         if (SteamVR_Actions.default_InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand) && click) // Right control
         {
